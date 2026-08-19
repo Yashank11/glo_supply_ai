@@ -1,0 +1,30 @@
+# Node/Frontend dependencies and builds
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Python/Backend virtual environments and cache
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# SQLite / Local Databases
+*.db
+*.sqlite3
+
+# Env configurations containing API Keys/Secrets
+.env
+
+# Logs and system files
+*.log
+logs/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
