@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { Play, TrendingUp, Ship, DollarSign, Clock, ShieldAlert } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function ScenarioSimulator() {
   const [activeTab, setActiveTab] = useState<'port' | 'commodity'>('port');
@@ -22,14 +23,14 @@ export default function ScenarioSimulator() {
   useEffect(() => {
     const loadDropdownData = async () => {
       try {
-        const portsRes = await fetch('http://localhost:8001/api/ports');
+        const portsRes = await fetch(`${API_BASE_URL}/api/ports`);
         const portsData = await portsRes.json();
         setPorts(portsData);
         if (portsData.length > 0) {
           setPortName(portsData[0].name);
         }
         
-        const commsRes = await fetch('http://localhost:8001/api/commodities');
+        const commsRes = await fetch(`${API_BASE_URL}/api/commodities`);
         const commsData = await commsRes.json();
         setCommodities(commsData);
         if (commsData.length > 0) {
@@ -46,7 +47,7 @@ export default function ScenarioSimulator() {
     setLoading(true);
     setPortResult(null);
     try {
-      const res = await fetch('http://localhost:8001/api/simulate/port', {
+      const res = await fetch(`${API_BASE_URL}/api/simulate/port`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ port_name: portName, duration_days: duration })
@@ -64,7 +65,7 @@ export default function ScenarioSimulator() {
     setLoading(true);
     setCommodityResult(null);
     try {
-      const res = await fetch('http://localhost:8001/api/simulate/commodity', {
+      const res = await fetch(`${API_BASE_URL}/api/simulate/commodity`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ commodity_name: commodity, price_increase_pct: priceSpike })

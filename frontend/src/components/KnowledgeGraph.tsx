@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
 import { Network, HelpCircle, Activity } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 interface GraphNode {
   id: string;
@@ -30,7 +31,7 @@ export default function KnowledgeGraph() {
   useEffect(() => {
     const fetchGraph = async () => {
       try {
-        const res = await fetch('http://localhost:8001/api/graph');
+        const res = await fetch(`${API_BASE_URL}/api/graph`);
         const data = await res.json();
         
         if (!containerRef.current) return;

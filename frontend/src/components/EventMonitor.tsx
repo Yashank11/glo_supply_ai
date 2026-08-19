@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Radio, AlertTriangle, Play, RefreshCw, Layers } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 interface DisruptionEvent {
   id: number;
@@ -22,7 +23,7 @@ export default function EventMonitor() {
     setFetching(true);
     setIngestResult(null);
     try {
-      const res = await fetch('http://localhost:8001/api/events/fetch-live', { method: 'POST' });
+      const res = await fetch(`${API_BASE_URL}/api/events/fetch-live`, { method: 'POST' });
       const data = await res.json();
       
       // Load top ingested result or fallback status
@@ -49,7 +50,7 @@ export default function EventMonitor() {
 
   const fetchEvents = async () => {
     try {
-      const res = await fetch('http://localhost:8001/api/events');
+      const res = await fetch(`${API_BASE_URL}/api/events`);
       const data = await res.json();
       setEvents(data);
     } catch (err) {
@@ -69,7 +70,7 @@ export default function EventMonitor() {
     setIngestResult(null);
 
     try {
-      const res = await fetch('http://localhost:8001/api/events/ingest', {
+      const res = await fetch(`${API_BASE_URL}/api/events/ingest`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: newsInput })
@@ -87,7 +88,7 @@ export default function EventMonitor() {
 
   const handleReset = async () => {
     try {
-      await fetch('http://localhost:8001/api/events/clear', { method: 'POST' });
+      await fetch(`${API_BASE_URL}/api/events/clear`, { method: 'POST' });
       setIngestResult(null);
       fetchEvents();
     } catch (err) {

@@ -6,6 +6,7 @@ import EventMonitor from './components/EventMonitor';
 import ScenarioSimulator from './components/ScenarioSimulator';
 import ProcurementCopilot from './components/ProcurementCopilot';
 import ExecutiveChat from './components/ExecutiveChat';
+import { API_BASE_URL } from './config';
 
 type TabType = 'control' | 'graph' | 'events' | 'simulator' | 'procurement' | 'chat';
 
@@ -31,7 +32,7 @@ export default function App() {
     setGenError(null);
 
     try {
-      const res = await fetch('http://localhost:8001/api/network/generate', {
+      const res = await fetch(`${API_BASE_URL}/api/network/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ company_name: companyName })

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Compass, MessageSquareCode, ShieldCheck, HelpCircle } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 interface AlternativeSupplier {
   supplier_name: string;
@@ -25,7 +26,7 @@ export default function ProcurementCopilot() {
     setSelectedSupplier(null);
     setNegotiationData(null);
     try {
-      const res = await fetch('http://localhost:8001/api/procurement/alternatives', {
+      const res = await fetch(`${API_BASE_URL}/api/procurement/alternatives`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sku })
@@ -58,7 +59,7 @@ export default function ProcurementCopilot() {
     };
 
     try {
-      const res = await fetch('http://localhost:8001/api/procurement/negotiate', {
+      const res = await fetch(`${API_BASE_URL}/api/procurement/negotiate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

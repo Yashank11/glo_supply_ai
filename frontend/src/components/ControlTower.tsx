@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Shield, AlertTriangle, Ship, TrendingDown, Users, DollarSign } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 // Use the user's Mapbox token from env
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN || '';
@@ -49,11 +50,11 @@ export default function ControlTower() {
     // 1. Fetch KPIs and Suppliers
     const fetchData = async () => {
       try {
-        const kpiRes = await fetch('http://localhost:8001/api/kpis');
+        const kpiRes = await fetch(`${API_BASE_URL}/api/kpis`);
         const kpiData = await kpiRes.json();
         setKpis(kpiData);
 
-        const supRes = await fetch('http://localhost:8001/api/suppliers');
+        const supRes = await fetch(`${API_BASE_URL}/api/suppliers`);
         const supData = await supRes.json();
         setSuppliers(supData);
       } catch (err) {

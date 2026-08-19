@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Cpu, Sparkles } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 interface ChatMessage {
   sender: 'user' | 'agent';
@@ -39,7 +40,7 @@ export default function ExecutiveChat() {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:8001/api/chat', {
+      const res = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMsg })
